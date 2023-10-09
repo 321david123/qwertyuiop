@@ -90,7 +90,7 @@ const App = () => {
       'BleManagerStopScan',
       () => {
         setIsScanning(false);
-        console.log('scan stopped');
+        console.log('Escaneo stopped');
       },
     );
 
@@ -105,7 +105,7 @@ const App = () => {
     if (!isScanning) {
       BleManager.scan([], 5, true)
         .then(() => {
-          console.log('Scanning...');
+          console.log('Escaneando...');
           setIsScanning(true);
         })
         .catch(error => {
@@ -122,7 +122,7 @@ const App = () => {
         let devices = Array.from(peripherals.values());
         setConnectedDevices(Array.from(devices));
         setDiscoveredDevices(Array.from(devices));
-        console.log('BLE device paired successfully');
+        console.log('Dispositivo BLE conectado correctamente');
       })
       .catch(() => {
         throw Error('failed to bond');
@@ -137,7 +137,7 @@ const App = () => {
         let devices = Array.from(peripherals.values());
         setConnectedDevices(Array.from(devices));
         setDiscoveredDevices(Array.from(devices));
-        Alert.alert(`Disconnected from ${peripheral.name}`);
+        Alert.alert(`Desconectado de ${peripheral.name}`);
       })
       .catch(() => {
         throw Error('fail to remove the bond');
@@ -161,14 +161,14 @@ const App = () => {
             styles.title,
             {color: isDarkMode ? Colors.white : Colors.black},
           ]}>
-          React Native BLE Manager Tutorial
+          RuedaTec usando BLE
         </Text>
         <TouchableOpacity
           onPress={scan}
           activeOpacity={0.5}
           style={styles.scanButton}>
           <Text style={styles.scanButtonText}>
-            {isScanning ? 'Scanning...' : 'Scan Bluetooth Devices'}
+            {isScanning ? 'Escaneando...' : 'Scan Bluetooth Devices'}
           </Text>
         </TouchableOpacity>
 
@@ -177,7 +177,7 @@ const App = () => {
             styles.subtitle,
             {color: isDarkMode ? Colors.white : Colors.black},
           ]}>
-          Discovered Devices:
+          Dispositivos encontrados:
         </Text>
         {discoveredDevices.length > 0 ? (
           <FlatList
@@ -192,7 +192,7 @@ const App = () => {
             keyExtractor={item => item.id}
           />
         ) : (
-          <Text style={styles.noDevicesText}>No Bluetooth devices found</Text>
+          <Text style={styles.noDevicesText}>No dispositivos bluetooth encontrados</Text>
         )}
 
         <Text
@@ -200,7 +200,7 @@ const App = () => {
             styles.subtitle,
             {color: isDarkMode ? Colors.white : Colors.black},
           ]}>
-          Connected Devices:
+          Dispositivos conectados:
         </Text>
         {connectedDevices.length > 0 ? (
           <FlatList
@@ -215,7 +215,7 @@ const App = () => {
             keyExtractor={item => item.id}
           />
         ) : (
-          <Text style={styles.noDevicesText}>No connected devices</Text>
+          <Text style={styles.noDevicesText}>No dispositivos conectados</Text>
         )}
       </View>
     </SafeAreaView>
