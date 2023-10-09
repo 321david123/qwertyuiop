@@ -20,6 +20,8 @@ import {styles} from './src/styles/styles';
 import {DeviceList} from './src/DeviceList';
 import BleManager from 'react-native-ble-manager';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN);
+PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT);
 
 const BleManagerModule = NativeModules.BleManager;
 const BleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -35,6 +37,7 @@ const App = () => {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+
         );
 
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
@@ -46,6 +49,7 @@ const App = () => {
         console.log('Error requesting location permission:', error);
       }
     }
+
   };
 
   const handleGetConnectedDevices = () => {
@@ -61,10 +65,10 @@ const App = () => {
 
   useEffect(() => {
     handleLocationPermission();
-
-    BleManager.enableBluetooth().then(() => {
-      console.log('Bluetooth is turned on!');
-    });
+//const enableBluetooth = async () => { const isBluetoothEnabled = await BleManager.requestToEnable(); if (!isBluetoothEnabled) { await BleManager.enable(); } };
+     BleManager.enableBluetooth().then(() => {
+       console.log('Bluetooth is turned on!');
+     });
 
     BleManager.start({showAlert: false}).then(() => {
       console.log('BleManager initialized');
@@ -103,7 +107,7 @@ const App = () => {
 
   const scan = () => {
     if (!isScanning) {
-      BleManager.scan([], 5, true)
+      BleManager.scan([], 10, true)
         .then(() => {
           console.log('Escaneando...');
           setIsScanning(true);
